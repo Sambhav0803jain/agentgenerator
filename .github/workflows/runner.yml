@@ -94,7 +94,6 @@ jobs:
     needs: create-runner
 
     runs-on:
-      - self-hosted
       - dynamic
       - linux
 

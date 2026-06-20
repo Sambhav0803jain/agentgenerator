@@ -83,7 +83,7 @@ jobs:
               --url https://github.com/${{ github.repository }} \
               --token ${{ steps.token.outputs.token }} \
               --name ${{ steps.runner.outputs.runner_name }} \
-              --labels dynamic,linux \
+              --labels dynamic,linux\
               --unattended \
               --replace
             
@@ -94,6 +94,7 @@ jobs:
     needs: create-runner
 
     runs-on:
+      - self-hosted
       - dynamic
       - linux
 

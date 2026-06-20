@@ -89,4 +89,24 @@ jobs:
             
               nohup ./run.sh > runner.log 2>&1 &
 
-   
+  build:
+
+    needs: create-runner
+
+    runs-on:
+      - self-hosted
+      - dynamic
+      - linux
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Verify runner
+        run: |
+          echo "Running on dynamic runner"
+          hostname
+
+      - name: Build
+        run: |
+          docker version   

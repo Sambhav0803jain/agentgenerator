@@ -43,8 +43,8 @@ jobs:
             -e GITHUB_URL=https://github.com/${{ github.repository }} \
             -e RUNNER_TOKEN=${{ steps.token.outputs.token }} \
             -e RUNNER_NAME=${{ steps.runner.outputs.runner_name }} \
-            -e RUNNER_LABELS=dynamic,linux \
-            Sambhav0803jain/github-runner:latest
+            -e RUNNER_LABELS=dynamic,linux 
+
 
       - name: Wait for registration
         run: |

@@ -12,7 +12,7 @@ jobs:
 
     outputs:
       runner_name: ${{ steps.runner.outputs.runner_name }}
-      token: ${{ steps.runner.outputs.token }}
+      token: ${{ steps.token.outputs.token }}
 
     steps:
 

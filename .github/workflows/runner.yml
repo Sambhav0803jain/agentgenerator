@@ -43,7 +43,8 @@ jobs:
             -e GITHUB_URL=https://github.com/${{ github.repository }} \
             -e RUNNER_TOKEN=${{ steps.token.outputs.token }} \
             -e RUNNER_NAME=${{ steps.runner.outputs.runner_name }} \
-            -e RUNNER_LABELS=dynamic,linux 
+            -e RUNNER_LABELS=dynamic,linux \
+            ubuntu:stonking-20260612
 
 
       - name: Wait for registration

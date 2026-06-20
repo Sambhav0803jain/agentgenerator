@@ -51,6 +51,15 @@ jobs:
         run: |
           sleep 30
 
+      - name: Verify runner
+        run: |
+          echo "Running on dynamic runner"
+          hostname
+
+      - name: Build
+        run: |
+          docker version
+
   build:
 
     needs: create-runner

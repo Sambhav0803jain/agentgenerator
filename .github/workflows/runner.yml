@@ -60,26 +60,24 @@ jobs:
         run: |
           docker version
 
-  build:
-
-    needs: create-runner
-
-    runs-on:
-      #- self-hosted
-      #- dynamic
-      #- linux
-      - ${{ needs.create-runner.outputs.runner_name }}
-    steps:
-
-      - uses: actions/checkout@v4
-
-      - name: Verify runner
+      - name: Register GitHub Runner
         run: |
-          echo "Running on dynamic runner"
-          hostname
-
-      - name: Build
-        run: |
-          docker version
+           mkdir actions-runner
+           cd actions-runner
+         
+           curl -o actions-runner.tar.gz -L 
+           https://github.com/actions/runner/releases/download/v2.328.0/actions-runner-linux-x64-2.328.0.tar.gz
+         
+           tar xzf actions-runner.tar.gz
+         
+           ./config.sh 
+           --url https://github.com/${{ github.repository }} 
+           --token ${{ steps.token.outputs.token }} 
+           --name ${{ steps.runner.outputs.runner_name }} 
+           --labels dynamic,linux 
+           --unattended 
+           --replace
+         
+           nohup ./run.sh > runner.log 2>&1 &
 
    

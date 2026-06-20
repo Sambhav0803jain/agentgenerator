@@ -59,8 +59,7 @@ jobs:
       #- self-hosted
       #- dynamic
       #- linux
-      - runner-${GITHUB_RUN_ID}
-
+      - ${{ needs.create-runner.outputs.runner_name }}
     steps:
 
       - uses: actions/checkout@v4

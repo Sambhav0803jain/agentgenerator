@@ -100,13 +100,8 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v4
-
       - name: Verify runner
         run: |
           echo "Running on dynamic runner"
           hostname
 
-      - name: Build
-        run: |
-          docker version   

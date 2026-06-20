@@ -1,0 +1,75 @@
+name: "Agent creation"
+
+on :
+   push:
+     branches: 
+        - main
+
+jobs:
+
+  create-runner:
+    runs-on: ubuntu-latest
+
+    outputs:
+      runner_name: ${{ steps.runner.outputs.runner_name }}
+
+    steps:
+
+      - name: Generate unique runner name
+        id: runner
+        run: |
+          RUNNER_NAME=runner-${GITHUB_RUN_ID}
+          echo "runner_name=$RUNNER_NAME" >> $GITHUB_OUTPUT
+
+      - name: Get registration token
+        id: token
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          TOKEN=$(curl -s -X POST \
+            -H "Authorization: token $GH_PAT" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/runners/registration-token \
+            | jq -r .token)
+
+          echo "token=$TOKEN" >> $GITHUB_OUTPUT
+
+      - name: Start runner container
+        run: |
+          docker run -d \
+            --name ${{ steps.runner.outputs.runner_name }} \
+            --restart unless-stopped \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -e GITHUB_URL=https://github.com/${{ github.repository }} \
+            -e RUNNER_TOKEN=${{ steps.token.outputs.token }} \
+            -e RUNNER_NAME=${{ steps.runner.outputs.runner_name }} \
+            -e RUNNER_LABELS=dynamic,linux \
+            myorg/github-runner:latest
+
+      - name: Wait for registration
+        run: |
+          sleep 30
+
+  build:
+
+    needs: create-runner
+
+    runs-on:
+      - self-hosted
+      - dynamic
+      - linux
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Verify runner
+        run: |
+          echo "Running on dynamic runner"
+          hostname
+
+      - name: Build
+        run: |
+          docker version
+
+   

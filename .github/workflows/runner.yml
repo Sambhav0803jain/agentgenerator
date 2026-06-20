@@ -56,9 +56,10 @@ jobs:
     needs: create-runner
 
     runs-on:
-      - self-hosted
-      - dynamic
-      - linux
+      #- self-hosted
+      #- dynamic
+      #- linux
+      - runner-${GITHUB_RUN_ID}
 
     steps:
 

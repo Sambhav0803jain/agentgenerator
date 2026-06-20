@@ -79,7 +79,7 @@ jobs:
             
             tar xzf actions-runner.tar.gz
          
-              ./config.sh 
+              ./config.sh \
               --url https://github.com/${{ github.repository }} 
               --token ${{ steps.token.outputs.token }} 
               --name ${{ steps.runner.outputs.runner_name }} 

@@ -80,11 +80,11 @@ jobs:
             tar xzf actions-runner.tar.gz
          
               ./config.sh \
-              --url https://github.com/${{ github.repository }} 
-              --token ${{ steps.token.outputs.token }} 
-              --name ${{ steps.runner.outputs.runner_name }} 
-              --labels dynamic,linux 
-              --unattended 
+              --url https://github.com/${{ github.repository }} \
+              --token ${{ steps.token.outputs.token }} \
+              --name ${{ steps.runner.outputs.runner_name }} \
+              --labels dynamic,linux \
+              --unattended \
               --replace
             
               nohup ./run.sh > runner.log 2>&1 &

@@ -44,7 +44,7 @@ jobs:
             -e RUNNER_TOKEN=${{ steps.token.outputs.token }} \
             -e RUNNER_NAME=${{ steps.runner.outputs.runner_name }} \
             -e RUNNER_LABELS=dynamic,linux \
-            myorg/github-runner:latest
+            Sambhav0803jain/github-runner:latest
 
       - name: Wait for registration
         run: |

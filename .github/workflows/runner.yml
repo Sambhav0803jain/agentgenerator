@@ -100,7 +100,7 @@ jobs:
     runs-on:
       - self-hosted
       - dynamic
-      - linux
+      - Linux
 
     steps:
 

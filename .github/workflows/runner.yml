@@ -88,7 +88,11 @@ jobs:
               --replace
             
               nohup ./run.sh > runner.log 2>&1 &
-
+              
+      - name: Wait for registration
+        run: |
+          sleep 30
+          
   build:
 
     needs: create-runner
